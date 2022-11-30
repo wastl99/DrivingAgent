@@ -1,0 +1,29 @@
+{
+    "DriveBehavior": {
+        "checkpoints": [
+            {
+                "steps": 400013,
+                "file_path": "results\\90_car03_long\\DriveBehavior\\DriveBehavior-400013.onnx",
+                "reward": 4754.634448762761,
+                "creation_time": 1669044792.0361593,
+                "auxillary_file_paths": [
+                    "results\\90_car03_long\\DriveBehavior\\DriveBehavior-400013.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 400013,
+            "file_path": "results\\90_car03_long\\DriveBehavior.onnx",
+            "reward": 4754.634448762761,
+            "creation_time": 1669044792.0361593,
+            "auxillary_file_paths": [
+                "results\\90_car03_long\\DriveBehavior\\DriveBehavior-400013.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
