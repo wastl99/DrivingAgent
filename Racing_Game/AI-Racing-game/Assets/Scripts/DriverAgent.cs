@@ -38,15 +38,32 @@ public class DriverAgent : Agent
     {
 
 
-        //int x = Random.Range(0, 3);
+        int x = Random.Range(0, 2);
         var rb = this.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
         laptime = 0f;
         distance = 0f;
 
 
-        this.transform.localPosition = new Vector3(115.62f, 0.4f, 268.8f);
-        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
+        //this.transform.localPosition = new Vector3(115.62f, 0.4f, 268.8f);
+        //this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
+
+        this.transform.localPosition = new Vector3(585.17f, 0.4f, 76f);
+        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+
+        /*
+        if (x == 0)
+        {
+            this.transform.localPosition = new Vector3(585.17f, 0.4f, 76f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+        }
+        if (x == 1)
+        {
+            this.transform.localPosition = new Vector3(719f, 0.75f, 230.2f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
+        }*/
+
+
 
         /*
         if (x == 0)
@@ -99,7 +116,8 @@ public class DriverAgent : Agent
     {       
     }
 
-    private Vector3 oldTrigger = new Vector3(115.62f, 0.4f, 268.8f);
+    //private Vector3 oldTrigger = new Vector3(115.62f, 0.4f, 268.8f);
+    private Vector3 oldTrigger = new Vector3(585.17f, 0.4f, 76f);
     private Vector3 newTrigger = new Vector3(0f, 0f, 0f);
 
     private void OnTriggerEnter(Collider other)
@@ -129,7 +147,7 @@ public class DriverAgent : Agent
 
         if(other.gameObject.tag == "punish")
         {
-            AddReward(-100f);
+            AddReward(-200f);
         }
     }
 
