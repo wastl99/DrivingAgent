@@ -17,6 +17,10 @@ public class DriverAgent : Agent
     float laptime = 0;
     float distance = 0;
 
+
+    private bool onGras = false;
+    private float offRoadTime = 0;
+
     private void Start()
     {
         if(vehicle != null)
@@ -29,6 +33,12 @@ public class DriverAgent : Agent
     public void FixedUpdate()
     {
         laptime += Time.fixedDeltaTime;
+
+       if (onGras)
+       {
+            offRoadTime += Time.fixedDeltaTime;
+       }
+
     }
 
 
@@ -43,12 +53,14 @@ public class DriverAgent : Agent
         rb.velocity = Vector3.zero;
         laptime = 0f;
         distance = 0f;
+        onGras = false;
+        offRoadTime = 0f;
 
 
         //this.transform.localPosition = new Vector3(115.62f, 0.4f, 268.8f);
         //this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
 
-        this.transform.localPosition = new Vector3(585.17f, 0.4f, 76f);
+        this.transform.localPosition = new Vector3(585.17f, 0.75f, 76f);
         this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
 
         /*
@@ -99,8 +111,31 @@ public class DriverAgent : Agent
 
         if(forwardView.OnRoad == false)
         {
-            AddReward(distance / laptime);
-            EndEpisode();
+            onGras = true;
+
+
+
+            // checks if the cart is on the road and let it drive 
+
+            if(offRoadTime > 1f)
+            {
+                float punishmentGras = distance * offRoadTime / laptime;                    
+
+                AddReward((distance / laptime) - punishmentGras);
+            
+                EndEpisode();
+            }
+        }
+        else
+        {
+            if(offRoadTime > 0f)
+            {
+                float punishmentGras = -distance * offRoadTime / laptime;
+                AddReward(punishmentGras);
+            }
+
+            onGras = false;
+            offRoadTime = 0;
         }
 
         Vector3 currposition = this.transform.position;

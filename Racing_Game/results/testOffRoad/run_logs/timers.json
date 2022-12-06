@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1670350689",
+        "python_version": "3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\wastl\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.8_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python38\\Scripts\\mlagents-learn config/ppo/car.yaml --run-id=testOffRoad",
+        "mlagents_version": "0.28.0",
+        "mlagents_envs_version": "0.28.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.23.3",
+        "end_time_seconds": "1670350729"
+    },
+    "total": 40.513211600000005,
+    "count": 1,
+    "self": 0.006016900000005876,
+    "children": {
+        "run_training.setup": {
+            "total": 0.15997039999999985,
+            "count": 1,
+            "self": 0.15997039999999985
+        },
+        "TrainerController.start_learning": {
+            "total": 40.3472243,
+            "count": 1,
+            "self": 0.00033820000000162054,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 40.346874,
+                    "count": 1,
+                    "self": 40.346874
+                },
+                "trainer_threads": {
+                    "total": 5.999999999062311e-07,
+                    "count": 1,
+                    "self": 5.999999999062311e-07
+                },
+                "TrainerController._save_models": {
+                    "total": 1.1499999999387e-05,
+                    "count": 1,
+                    "self": 1.1499999999387e-05
+                }
+            }
+        }
+    }
+}
