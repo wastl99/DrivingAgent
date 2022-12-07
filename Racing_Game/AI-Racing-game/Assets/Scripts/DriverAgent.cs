@@ -17,9 +17,11 @@ public class DriverAgent : Agent
     float laptime = 0;
     float distance = 0;
 
-
+    // hi
     private bool onGras = false;
     private float offRoadTime = 0;
+
+    public RayPerceptionSensorComponent3D raySensorMiddleLine;
 
     private void Start()
     {
@@ -102,48 +104,58 @@ public class DriverAgent : Agent
     {
         float acc = Mathf.Clamp(actions.ContinuousActions[0], 0f, 1f);
         float steer = Mathf.Clamp(actions.ContinuousActions[1], -1f, 1f);
+        int brake = actions.DiscreteActions[0];
 
         Debug.Log(acc);
 
         //forward to vehicle;
         control.AgentAcc = acc;
         control.AgentSteer = steer;
+        control.agentbrake = brake;
 
-        if(forwardView.OnRoad == false)
+
+
+        if (forwardView.OnRoad == false)
         {
-            onGras = true;
+
+            AddReward(distance / laptime);
+
+            EndEpisode();
+            /*            onGras = true;
 
 
 
-            // checks if the cart is on the road and let it drive 
+                        // checks if the cart is on the road and let it drive 
 
-            if(offRoadTime > 1f)
-            {
-                float punishmentGras = distance * offRoadTime / laptime;                    
+                        if(offRoadTime > 1f)
+                        {
+                            float punishmentGras = distance * offRoadTime / laptime;                    
 
-                AddReward((distance / laptime) - punishmentGras);
-            
-                EndEpisode();
-            }
+                            AddReward((distance / laptime) - punishmentGras);
+
+                            EndEpisode();
+                        }*/
         }
         else
         {
-            if(offRoadTime > 0f)
+/*            if(offRoadTime > 0f)
             {
                 float punishmentGras = -distance * offRoadTime / laptime;
                 AddReward(punishmentGras);
             }
 
             onGras = false;
-            offRoadTime = 0;
+            offRoadTime = 0;*/
         }
 
         Vector3 currposition = this.transform.position;
         if(Vector3.Distance(currposition, lastPosition) > 1)
         {
+            int hits = getHits();
+            
             distance += 1f;
             lastPosition = currposition;
-            AddReward(0.5f * control.speed);
+            AddReward(0.5f * control.speed * hits);
         }
     }
 
@@ -189,6 +201,25 @@ public class DriverAgent : Agent
     private void OnTriggerExit(Collider other)
     {
         oldTrigger = other.gameObject.transform.localPosition; 
+    }
+
+    private int getHits()
+    {
+        // Accessing ray perception sensors 
+        var input = raySensorMiddleLine.GetRayPerceptionInput();
+        var output = RayPerceptionSensor.Perceive(input);
+
+        int hits = 0;
+
+        for (int i = 0; i < output.RayOutputs.Length; i++)
+        {
+            if (output.RayOutputs[i].HasHit)
+            {
+                hits++;
+            }
+        }
+
+        return hits;
     }
 
 }
