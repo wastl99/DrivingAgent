@@ -46,8 +46,8 @@ public class DriverAgent : Agent
     }
 
 
-    
 
+    public int countEpisods = -1;
     public override void OnEpisodeBegin()
     {
 
@@ -59,44 +59,81 @@ public class DriverAgent : Agent
         distance = 0f;
         onGras = false;
         offRoadTime = 0f;
-
+        countEpisods++;
 
         //this.transform.localPosition = new Vector3(115.62f, 0.4f, 268.8f);
         //this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
 
-        this.transform.localPosition = new Vector3(585.17f, 0.75f, 76f);
-        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-
-        /*
-        if (x == 0)
+        if(countEpisods < 150000)
         {
-            this.transform.localPosition = new Vector3(585.17f, 0.4f, 76f);
+            this.transform.localPosition = new Vector3(113.84f, 0.75f, 413.38f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
         }
-        if (x == 1)
+        else
         {
-            this.transform.localPosition = new Vector3(719f, 0.75f, 230.2f);
-            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
-        }*/
-
-
-
-        /*
-        if (x == 0)
-        {
-            this.transform.localPosition = new Vector3(115.62f, 0.75f, 577.22f);
-            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+            if (countEpisods < 300000)
+            {
+                this.transform.localPosition = new Vector3(199.9f, 0.75f, 592.6f);
+                this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+            }
+            else
+            {
+                if (countEpisods < 450000)
+                {
+                    this.transform.localPosition = new Vector3(353.43f, 0.75f, 704.4f);
+                    this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
+                }
+                else
+                {
+                    if (countEpisods < 600000)
+                    {
+                        this.transform.localPosition = new Vector3(295.5f, 0.75f, 510.77f);
+                        this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
+                    }
+                    else
+                    {
+                        if (countEpisods < 750000)
+                        {
+                            this.transform.localPosition = new Vector3(199f, 0.75f, 414f);
+                            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+                        }
+                        else
+                        {
+                            if (countEpisods < 900000)
+                            {
+                                this.transform.localPosition = new Vector3(449.74f, 0.75f, 613.58f);
+                                this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+                            }
+                            else
+                            {
+                                if (countEpisods < 1050000)
+                                {
+                                    this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
+                                    this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+                                }
+                                else
+                                {
+                                    if (countEpisods < 1200000)
+                                    {
+                                        this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
+                                        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+                                    }
+                                    else
+                                    {
+                                        this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
+                                        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        if (x == 1)
-        {
-            this.transform.localPosition = new Vector3(192.3f, 0.75f, 840.7f);
-            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 68.71f, 0f));
-        }
-        if (x == 2)
-        {
-            this.transform.localPosition = new Vector3(362.1f, 0.75f, 671.4f);
-            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 179.618f, 0f));
-        }*/
+
+
+
+
 
     }
 
@@ -177,13 +214,16 @@ public class DriverAgent : Agent
         Vector3 currposition = this.transform.position;
         if(Vector3.Distance(currposition, lastPosition) > 1)
         {
-            int hits = getHits(RaySensorMiddleLine);
-            int rays = getNumbRays(RaySensorMiddleLine);
+            int hitsMiddle = getHits(RaySensorMiddleLine);
+            int raysMiddle = getNumbRays(RaySensorMiddleLine);
+
+            int hitsCurve = getHits(RaySensorCurve);
+            int raysCurve = getNumbRays(RaySensorCurve);
 
             distance += 1f;
             lastPosition = currposition;
 
-            float reward = 0.5f * control.speed * hits / rays;
+            float reward = (0.5f * control.speed * hitsMiddle * hitsCurve) / (raysMiddle * raysCurve);
 
             AddReward(reward);
         }
@@ -210,6 +250,7 @@ public class DriverAgent : Agent
             AddReward(distance / laptime);
         }
 
+        /*
         if(other.gameObject.tag == "guide")
         {
 
@@ -227,7 +268,7 @@ public class DriverAgent : Agent
         if(other.gameObject.tag == "punish")
         {
             AddReward(-200f);
-        }
+        }*/
     }
 
     private void OnTriggerExit(Collider other)

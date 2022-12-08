@@ -1,0 +1,6 @@
+mlagents-learn config/ppo/car.yaml --run-id=carTest
+
+
+tensorboard --logdir results --port 6006
+
+und dann online: http://localhost:6006/
