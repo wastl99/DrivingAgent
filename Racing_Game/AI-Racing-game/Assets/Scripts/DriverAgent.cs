@@ -23,6 +23,7 @@ public class DriverAgent : Agent
 
 
     public RayPerceptionSensorComponent3D RaySensorMiddleLine;
+    public RayPerceptionSensorComponent3D RaySensorCurve;
 
     private void Start()
     {
