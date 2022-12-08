@@ -1,0 +1,29 @@
+{
+    "DriveBehavior": {
+        "checkpoints": [
+            {
+                "steps": 100012,
+                "file_path": "results\\offRoadTest2\\DriveBehavior\\DriveBehavior-100012.onnx",
+                "reward": 15480.877631030036,
+                "creation_time": 1670401249.6224928,
+                "auxillary_file_paths": [
+                    "results\\offRoadTest2\\DriveBehavior\\DriveBehavior-100012.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 100012,
+            "file_path": "results\\offRoadTest2\\DriveBehavior.onnx",
+            "reward": 15480.877631030036,
+            "creation_time": 1670401249.6224928,
+            "auxillary_file_paths": [
+                "results\\offRoadTest2\\DriveBehavior\\DriveBehavior-100012.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

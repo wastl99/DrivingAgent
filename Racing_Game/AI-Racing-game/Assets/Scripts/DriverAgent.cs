@@ -21,6 +21,9 @@ public class DriverAgent : Agent
     private bool onGras = false;
     private float offRoadTime = 0;
 
+
+    public RayPerceptionSensorComponent3D RaySensorMiddleLine;
+
     private void Start()
     {
         if(vehicle != null)
@@ -96,6 +99,36 @@ public class DriverAgent : Agent
 
     }
 
+    private int getHits(RayPerceptionSensorComponent3D sensor)
+    {
+        //to get the ray from the ray sensor component
+        var input = sensor.GetRayPerceptionInput();
+        var output = RayPerceptionSensor.Perceive(input);
+
+        int hits = 0;
+
+        for (int i = 0; i < output.RayOutputs.Length; i++)
+        {
+            if (output.RayOutputs[i].HasHit)
+            {
+                hits++;
+            }
+        }
+
+        return hits;
+    }
+
+
+    //get the numbers of rays of the sensor
+    private int getNumbRays(RayPerceptionSensorComponent3D sensor)
+    {
+        //to get the ray from the ray sensor component
+        var input = sensor.GetRayPerceptionInput();
+        var output = RayPerceptionSensor.Perceive(input);
+
+        return output.RayOutputs.Length;
+    }
+
 
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -109,47 +142,57 @@ public class DriverAgent : Agent
         control.AgentAcc = acc;
         control.AgentSteer = steer;
 
-        if(forwardView.OnRoad == false)
+
+
+        if (forwardView.OnRoad == false)
         {
-            onGras = true;
+            //onGras = true;
 
 
 
             // checks if the cart is on the road and let it drive 
 
-            if(offRoadTime > 1f)
-            {
-                float punishmentGras = distance * offRoadTime / laptime;                    
+            //if(offRoadTime > 0.5f)
+            //{
+                //float punishmentGras = distance * 10* offRoadTime / laptime;                    
 
-                AddReward((distance / laptime) - punishmentGras);
-            
+                //AddReward((distance / laptime) - punishmentGras);
+            AddReward(distance / laptime);
                 EndEpisode();
-            }
+            //}
         }
-        else
+        /*else
         {
             if(offRoadTime > 0f)
             {
-                float punishmentGras = -distance * offRoadTime / laptime;
+                float punishmentGras = -distance * 10 * offRoadTime / laptime;
                 AddReward(punishmentGras);
             }
 
             onGras = false;
             offRoadTime = 0;
-        }
+        }*/
 
         Vector3 currposition = this.transform.position;
         if(Vector3.Distance(currposition, lastPosition) > 1)
         {
+            int hits = getHits(RaySensorMiddleLine);
+            int rays = getNumbRays(RaySensorMiddleLine);
+
             distance += 1f;
             lastPosition = currposition;
-            AddReward(0.5f * control.speed);
+
+            float reward = 0.5f * control.speed * hits / rays;
+
+            AddReward(reward);
         }
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {       
+
     }
+
 
     //private Vector3 oldTrigger = new Vector3(115.62f, 0.4f, 268.8f);
     private Vector3 oldTrigger = new Vector3(585.17f, 0.4f, 76f);
@@ -190,5 +233,8 @@ public class DriverAgent : Agent
     {
         oldTrigger = other.gameObject.transform.localPosition; 
     }
+
+
+    // RayPerceptionSensor to get the rays
 
 }
