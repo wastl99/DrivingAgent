@@ -21,6 +21,8 @@ public class DriverAgent : Agent
     private bool onGras = false;
     private float offRoadTime = 0;
 
+    private int countStepps = 0;
+
 
     public RayPerceptionSensorComponent3D RaySensorMiddleLine;
     public RayPerceptionSensorComponent3D RaySensorCurve;
@@ -59,61 +61,61 @@ public class DriverAgent : Agent
         distance = 0f;
         onGras = false;
         offRoadTime = 0f;
-        countEpisods++;
+        countEpisods = CompletedEpisodes;
 
         //this.transform.localPosition = new Vector3(115.62f, 0.4f, 268.8f);
         //this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
 
-        if(countEpisods < 150000)
+        if (CompletedEpisodes < 50000)
         {
             this.transform.localPosition = new Vector3(113.84f, 0.75f, 413.38f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
         }
         else
         {
-            if (countEpisods < 300000)
+            if (CompletedEpisodes < 100000)
             {
                 this.transform.localPosition = new Vector3(199.9f, 0.75f, 592.6f);
                 this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
             }
             else
             {
-                if (countEpisods < 450000)
+                if (CompletedEpisodes < 150000)
                 {
                     this.transform.localPosition = new Vector3(353.43f, 0.75f, 704.4f);
                     this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
                 }
                 else
                 {
-                    if (countEpisods < 600000)
+                    if (CompletedEpisodes < 200000)
                     {
                         this.transform.localPosition = new Vector3(295.5f, 0.75f, 510.77f);
                         this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
                     }
                     else
                     {
-                        if (countEpisods < 750000)
+                        if (CompletedEpisodes < 250000)
                         {
                             this.transform.localPosition = new Vector3(199f, 0.75f, 414f);
                             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                         }
                         else
                         {
-                            if (countEpisods < 900000)
+                            if (CompletedEpisodes < 300000)
                             {
                                 this.transform.localPosition = new Vector3(449.74f, 0.75f, 613.58f);
                                 this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                             }
                             else
                             {
-                                if (countEpisods < 1050000)
+                                if (CompletedEpisodes < 350000)
                                 {
                                     this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
                                     this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                                 }
                                 else
                                 {
-                                    if (countEpisods < 1200000)
+                                    if (CompletedEpisodes < 400000)
                                     {
                                         this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
                                         this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
@@ -131,11 +133,7 @@ public class DriverAgent : Agent
             }
         }
 
-
-
-
-
-    }
+    } 
 
     private int getHits(RayPerceptionSensorComponent3D sensor)
     {
@@ -174,7 +172,7 @@ public class DriverAgent : Agent
         float acc = Mathf.Clamp(actions.ContinuousActions[0], 0f, 1f);
         float steer = Mathf.Clamp(actions.ContinuousActions[1], -1f, 1f);
 
-        Debug.Log(acc);
+       // Debug.Log(acc);
 
         //forward to vehicle;
         control.AgentAcc = acc;
@@ -195,8 +193,13 @@ public class DriverAgent : Agent
                 //float punishmentGras = distance * 10* offRoadTime / laptime;                    
 
                 //AddReward((distance / laptime) - punishmentGras);
-            AddReward(distance / laptime);
-                EndEpisode();
+            if(laptime > 0)
+            {
+                AddReward(distance / laptime);
+            }
+
+            countStepps += StepCount;
+            EndEpisode();
             //}
         }
         /*else
@@ -223,7 +226,7 @@ public class DriverAgent : Agent
             distance += 1f;
             lastPosition = currposition;
 
-            float reward = (0.5f * control.speed * hitsMiddle * hitsCurve) / (raysMiddle * raysCurve);
+            float reward = 0 + (0.5f * control.speed * hitsMiddle * hitsCurve) / (raysMiddle * raysCurve);
 
             AddReward(reward);
         }
