@@ -237,7 +237,7 @@ public class DriverAgent : Agent
             distance += 1f;
             lastPosition = currposition;
 
-            float reward = 0 + (0.5f * control.speed * hitsMiddle * hitsCurve) / (raysMiddle * raysCurve);
+            float reward = 0 + (0.5f * control.speed * (hitsMiddle + hitsCurve)) / (raysMiddle + raysCurve);
 
             AddReward(reward);
         }
