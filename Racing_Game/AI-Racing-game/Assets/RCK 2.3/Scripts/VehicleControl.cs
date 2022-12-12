@@ -147,6 +147,7 @@ public class VehicleControl : MonoBehaviour
     public float AgentAcc = 0f;
     [HideInInspector]
     public bool brake;
+    public int agentBrake;
 
     private bool shifmotor;
 
@@ -511,6 +512,14 @@ public class VehicleControl : MonoBehaviour
                     accel = Input.GetAxis("Vertical");
                     accel = AgentAcc;
                     brake = Input.GetButton("Jump");
+                    if (agentBrake > 0)
+                    {
+                        brake = true;
+                    }
+                    else
+                    {
+                        brake = false;
+                    }
                     shift = Input.GetKey(KeyCode.LeftShift) | Input.GetKey(KeyCode.RightShift);
 
 

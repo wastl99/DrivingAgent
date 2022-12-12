@@ -4,9 +4,29 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using Unity.Barracuda;
+using Phil.MLAgents;
 
 public class DriverAgent : Agent
 {
+
+    // Depending on this value, we will have different spawn positions
+    int configuration;
+    // Brain to use on straight
+    public NNModel straightBrain;
+    // Brain to use on 90 degree right
+    public NNModel ninetyRBrain;
+    // Brain to use on 90 degree left
+    public NNModel ninetyLBrain;
+    // Brain to use on long curve right
+    public NNModel longRBrain;
+    // Brain to use on long curve left
+    public NNModel longLBrain;
+    // Brain to use on difficult curve right
+    public NNModel diffRBrain;
+    // Brain to use on difficult curve left
+    public NNModel diffLBrain;
+
     public GameObject vehicle;
     private forwardView forwardView;
     private VehicleControl control;
@@ -17,16 +37,50 @@ public class DriverAgent : Agent
     float laptime = 0;
     float distance = 0;
 
-
+/*
     private bool onGras = false;
     private float offRoadTime = 0;
 
     private int countStepps = 0;
 
-    public bool isTraining = false;
+    public bool isTraining = false;*/
 
     public RayPerceptionSensorComponent3D RaySensorMiddleLine;
     public RayPerceptionSensorComponent3D RaySensorCurve;
+
+    string straightBehName = "DriveBehaviorStraight";
+    string curveBehName = "DriveBehaviorCurve";
+
+    public override void Initialize()
+    {
+        configuration = Random.Range(0, 9);
+
+        // Update model references if we want to override
+        var modelOverrider = GetComponent<ModelOverrider>();
+        if (modelOverrider.HasOverrides)
+        {
+            straightBrain = modelOverrider.GetModelForBehaviorName(straightBehName);
+            straightBehName = ModelOverrider.GetOverrideBehaviorName(straightBehName);
+
+            ninetyRBrain = modelOverrider.GetModelForBehaviorName(curveBehName);
+            curveBehName = ModelOverrider.GetOverrideBehaviorName(curveBehName);
+
+            ninetyLBrain = modelOverrider.GetModelForBehaviorName(curveBehName);
+            curveBehName = ModelOverrider.GetOverrideBehaviorName(curveBehName);
+
+            longRBrain = modelOverrider.GetModelForBehaviorName(curveBehName);
+            curveBehName = ModelOverrider.GetOverrideBehaviorName(curveBehName);
+
+            longLBrain = modelOverrider.GetModelForBehaviorName(curveBehName);
+            curveBehName = ModelOverrider.GetOverrideBehaviorName(curveBehName);
+
+            diffRBrain = modelOverrider.GetModelForBehaviorName(curveBehName);
+            curveBehName = ModelOverrider.GetOverrideBehaviorName(curveBehName);
+
+            diffLBrain = modelOverrider.GetModelForBehaviorName(curveBehName);
+            curveBehName = ModelOverrider.GetOverrideBehaviorName(curveBehName);
+        }
+    }
 
     private void Start()
     {
@@ -41,32 +95,38 @@ public class DriverAgent : Agent
     {
         laptime += Time.fixedDeltaTime;
 
-       if (onGras)
+        if (configuration != 1)
+        {
+            ConfigureAgent(configuration);
+            configuration = -1;
+        }
+
+/*       if (onGras)
        {
             offRoadTime += Time.fixedDeltaTime;
-       }
+       }*/
 
     }
 
 
 
-    public int countEpisods = -1;
+    //public int countEpisods = -1;
     public override void OnEpisodeBegin()
     {
 
-
-        int x = Random.Range(0, 2);
+        configuration = Random.Range(0, 9);
+        //int x = Random.Range(0, 2);
         var rb = this.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
         laptime = 0f;
         distance = 0f;
-        onGras = false;
-        offRoadTime = 0f;
-        countEpisods = CompletedEpisodes;
+        //onGras = false;
+        //offRoadTime = 0f;
+        //countEpisods = CompletedEpisodes;
 
         //this.transform.localPosition = new Vector3(115.62f, 0.4f, 268.8f);
         //this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
-
+/*
         if (isTraining)
         {
             if (CompletedEpisodes < 50000)
@@ -140,7 +200,7 @@ public class DriverAgent : Agent
         {
             this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-        }
+        }*/
 
         
 
@@ -182,13 +242,14 @@ public class DriverAgent : Agent
     {
         float acc = Mathf.Clamp(actions.ContinuousActions[0], 0f, 1f);
         float steer = Mathf.Clamp(actions.ContinuousActions[1], -1f, 1f);
+        int brake = actions.DiscreteActions[0];
 
        // Debug.Log(acc);
 
         //forward to vehicle;
         control.AgentAcc = acc;
         control.AgentSteer = steer;
-
+        control.agentBrake = brake;
 
 
         if (forwardView.OnRoad == false)
@@ -209,7 +270,7 @@ public class DriverAgent : Agent
                 AddReward(distance / laptime);
             }
 
-            countStepps += StepCount;
+            //countStepps += StepCount;
             EndEpisode();
             //}
         }
@@ -237,7 +298,7 @@ public class DriverAgent : Agent
             distance += 1f;
             lastPosition = currposition;
 
-            float reward = 0 + (0.5f * control.speed * hitsMiddle * hitsCurve) / (raysMiddle * raysCurve);
+            float reward = 0 + (0.5f * control.speed + hitsMiddle + hitsCurve) / (raysMiddle + raysCurve);
 
             AddReward(reward);
         }
@@ -292,5 +353,52 @@ public class DriverAgent : Agent
 
 
     // RayPerceptionSensor to get the rays
+
+
+    void ConfigureAgent(int config)
+    {
+        if (config == 0)
+        {
+            this.transform.localPosition = new Vector3(113.84f, 0.75f, 413.38f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+            SetModel(straightBehName, straightBrain);
+        }
+        else if (config == 1)
+        {
+            this.transform.localPosition = new Vector3(199.9f, 0.75f, 592.6f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+            SetModel(curveBehName, longRBrain);
+        }
+        else if (config == 2)
+        {
+            this.transform.localPosition = new Vector3(353.43f, 0.75f, 704.4f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
+            SetModel(curveBehName, longLBrain);
+        }
+        else if (config == 3)
+        {
+            this.transform.localPosition = new Vector3(295.5f, 0.75f, 510.77f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
+            SetModel(curveBehName, ninetyLBrain);
+        }
+        else if (config == 4)
+        {
+            this.transform.localPosition = new Vector3(199f, 0.75f, 414f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+            SetModel(curveBehName, ninetyRBrain);
+        }
+        else if (config == 5)
+        {
+            this.transform.localPosition = new Vector3(449.74f, 0.75f, 613.58f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+            SetModel(curveBehName, diffRBrain);
+        }
+        else if (config == 6)
+        {
+            this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+            SetModel(curveBehName, diffLBrain);
+        }
+    }
 
 }
