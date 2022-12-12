@@ -118,16 +118,9 @@ public class DriverAgent : Agent
                                     }
                                     else
                                     {
-                                        if (CompletedEpisodes < 400000)
-                                        {
-                                            this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
-                                            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-                                        }
-                                        else
-                                        {
-                                            this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
-                                            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-                                        }
+                                        this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
+                                        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+                                        
                                     }
                                 }
                             }
