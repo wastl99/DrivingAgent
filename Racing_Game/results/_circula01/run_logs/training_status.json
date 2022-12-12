@@ -1,0 +1,65 @@
+{
+    "DriveBehavior": {
+        "checkpoints": [
+            {
+                "steps": 499997,
+                "file_path": "results\\_circula01\\DriveBehavior\\DriveBehavior-499997.onnx",
+                "reward": 601.8884945683625,
+                "creation_time": 1670799148.436313,
+                "auxillary_file_paths": [
+                    "results\\_circula01\\DriveBehavior\\DriveBehavior-499997.pt"
+                ]
+            },
+            {
+                "steps": 999998,
+                "file_path": "results\\_circula01\\DriveBehavior\\DriveBehavior-999998.onnx",
+                "reward": 297.2799380474963,
+                "creation_time": 1670805340.741576,
+                "auxillary_file_paths": [
+                    "results\\_circula01\\DriveBehavior\\DriveBehavior-999998.pt"
+                ]
+            },
+            {
+                "steps": 1499995,
+                "file_path": "results\\_circula01\\DriveBehavior\\DriveBehavior-1499995.onnx",
+                "reward": 425.1797795286869,
+                "creation_time": 1670811480.87204,
+                "auxillary_file_paths": [
+                    "results\\_circula01\\DriveBehavior\\DriveBehavior-1499995.pt"
+                ]
+            },
+            {
+                "steps": 1999998,
+                "file_path": "results\\_circula01\\DriveBehavior\\DriveBehavior-1999998.onnx",
+                "reward": 227.36976344020022,
+                "creation_time": 1670817799.4689274,
+                "auxillary_file_paths": [
+                    "results\\_circula01\\DriveBehavior\\DriveBehavior-1999998.pt"
+                ]
+            },
+            {
+                "steps": 2000001,
+                "file_path": "results\\_circula01\\DriveBehavior\\DriveBehavior-2000001.onnx",
+                "reward": 227.02130403262902,
+                "creation_time": 1670817799.5561588,
+                "auxillary_file_paths": [
+                    "results\\_circula01\\DriveBehavior\\DriveBehavior-2000001.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2000001,
+            "file_path": "results\\_circula01\\DriveBehavior.onnx",
+            "reward": 227.02130403262902,
+            "creation_time": 1670817799.5561588,
+            "auxillary_file_paths": [
+                "results\\_circula01\\DriveBehavior\\DriveBehavior-2000001.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

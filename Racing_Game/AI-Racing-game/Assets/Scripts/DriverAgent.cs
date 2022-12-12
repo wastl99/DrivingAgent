@@ -23,6 +23,7 @@ public class DriverAgent : Agent
 
     private int countStepps = 0;
 
+    public bool isTraining = false;
 
     public RayPerceptionSensorComponent3D RaySensorMiddleLine;
     public RayPerceptionSensorComponent3D RaySensorCurve;
@@ -66,64 +67,67 @@ public class DriverAgent : Agent
         //this.transform.localPosition = new Vector3(115.62f, 0.4f, 268.8f);
         //this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
 
-        if (CompletedEpisodes < 50000)
+        if (isTraining)
         {
-            this.transform.localPosition = new Vector3(113.84f, 0.75f, 413.38f);
-            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-        }
-        else
-        {
-            if (CompletedEpisodes < 100000)
+            if (CompletedEpisodes < 50000)
             {
-                this.transform.localPosition = new Vector3(199.9f, 0.75f, 592.6f);
+                this.transform.localPosition = new Vector3(113.84f, 0.75f, 413.38f);
                 this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
             }
             else
             {
-                if (CompletedEpisodes < 150000)
+                if (CompletedEpisodes < 100000)
                 {
-                    this.transform.localPosition = new Vector3(353.43f, 0.75f, 704.4f);
-                    this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
+                    this.transform.localPosition = new Vector3(199.9f, 0.75f, 592.6f);
+                    this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                 }
                 else
                 {
-                    if (CompletedEpisodes < 200000)
+                    if (CompletedEpisodes < 150000)
                     {
-                        this.transform.localPosition = new Vector3(295.5f, 0.75f, 510.77f);
+                        this.transform.localPosition = new Vector3(353.43f, 0.75f, 704.4f);
                         this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
                     }
                     else
                     {
-                        if (CompletedEpisodes < 250000)
+                        if (CompletedEpisodes < 200000)
                         {
-                            this.transform.localPosition = new Vector3(199f, 0.75f, 414f);
-                            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+                            this.transform.localPosition = new Vector3(295.5f, 0.75f, 510.77f);
+                            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
                         }
                         else
                         {
-                            if (CompletedEpisodes < 300000)
+                            if (CompletedEpisodes < 250000)
                             {
-                                this.transform.localPosition = new Vector3(449.74f, 0.75f, 613.58f);
+                                this.transform.localPosition = new Vector3(199f, 0.75f, 414f);
                                 this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                             }
                             else
                             {
-                                if (CompletedEpisodes < 350000)
+                                if (CompletedEpisodes < 300000)
                                 {
-                                    this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
+                                    this.transform.localPosition = new Vector3(449.74f, 0.75f, 613.58f);
                                     this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                                 }
                                 else
                                 {
-                                    if (CompletedEpisodes < 400000)
+                                    if (CompletedEpisodes < 350000)
                                     {
                                         this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
                                         this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
                                     }
                                     else
                                     {
-                                        this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
-                                        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+                                        if (CompletedEpisodes < 400000)
+                                        {
+                                            this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
+                                            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+                                        }
+                                        else
+                                        {
+                                            this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
+                                            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+                                        }
                                     }
                                 }
                             }
@@ -132,6 +136,13 @@ public class DriverAgent : Agent
                 }
             }
         }
+        else
+        {
+            this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+        }
+
+        
 
     } 
 
