@@ -11,7 +11,7 @@ public class DriverAgent : Agent
 {
 
     // Depending on this value, we will have different spawn positions
-    int configuration;
+    float configuration;
     // Brain to use on straight
     public NNModel straightBrain;
     // Brain to use on 90 degree right
@@ -51,9 +51,13 @@ public class DriverAgent : Agent
     string straightBehName = "DriveBehaviorStraight";
     string curveBehName = "DriveBehaviorCurve";
 
+    EnvironmentParameters environmentParameters;
+
     public override void Initialize()
     {
-        configuration = Random.Range(0, 9);
+        //configuration = Random.Range(0, 9);
+
+        environmentParameters = Academy.Instance.EnvironmentParameters;
 
         // Update model references if we want to override
         var modelOverrider = GetComponent<ModelOverrider>();
@@ -94,12 +98,12 @@ public class DriverAgent : Agent
     public void FixedUpdate()
     {
         laptime += Time.fixedDeltaTime;
-
+/*
         if (configuration != 1)
         {
             ConfigureAgent(configuration);
             configuration = -1;
-        }
+        }*/
 
 /*       if (onGras)
        {
@@ -114,7 +118,10 @@ public class DriverAgent : Agent
     public override void OnEpisodeBegin()
     {
 
-        configuration = Random.Range(0, 9);
+        configuration = environmentParameters.GetWithDefault("straight", 1.0f);
+        //configuration = Random.Range(0, 9);
+        ConfigureAgent(configuration);
+
         //int x = Random.Range(0, 2);
         var rb = this.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
@@ -126,7 +133,7 @@ public class DriverAgent : Agent
 
         //this.transform.localPosition = new Vector3(115.62f, 0.4f, 268.8f);
         //this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
-
+/*
         if (isTraining)
         {
             return;
@@ -135,7 +142,7 @@ public class DriverAgent : Agent
         {
             this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-        }
+        }*/
 /*
         if (isTraining)
         {
@@ -365,49 +372,48 @@ public class DriverAgent : Agent
     // RayPerceptionSensor to get the rays
 
 
-    void ConfigureAgent(int config)
+    void ConfigureAgent(float config)
     {
-        if (config == 0)
+
+        if (config == 1.0f)
         {
             this.transform.localPosition = new Vector3(113.84f, 0.75f, 413.38f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-            SetModel(straightBehName, straightBrain);
         }
-        else if (config == 1)
+        else if (config == 2.0f)
         {
             this.transform.localPosition = new Vector3(199.9f, 0.75f, 592.6f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-            SetModel(curveBehName, longRBrain);
         }
-        else if (config == 2)
+        else if (config == 3.0f)
         {
             this.transform.localPosition = new Vector3(353.43f, 0.75f, 704.4f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
-            SetModel(curveBehName, longLBrain);
         }
-        else if (config == 3)
+        else if (config == 4.0f)
         {
             this.transform.localPosition = new Vector3(295.5f, 0.75f, 510.77f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
-            SetModel(curveBehName, ninetyLBrain);
         }
-        else if (config == 4)
+        else if (config == 5.0f)
         {
             this.transform.localPosition = new Vector3(199f, 0.75f, 414f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-            SetModel(curveBehName, ninetyRBrain);
         }
-        else if (config == 5)
+        else if (config == 6.0f)
         {
             this.transform.localPosition = new Vector3(449.74f, 0.75f, 613.58f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-            SetModel(curveBehName, diffRBrain);
         }
-        else if (config == 6)
+        else if (config == 7.0f)
         {
             this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-            SetModel(curveBehName, diffLBrain);
+        }
+        else if (config == 8.0f)
+        {
+            this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
         }
     }
 

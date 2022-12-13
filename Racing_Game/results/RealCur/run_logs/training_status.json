@@ -1,0 +1,32 @@
+{
+    "straight": {
+        "lesson_num": 0
+    },
+    "DriveBehaviorCurve": {
+        "checkpoints": [
+            {
+                "steps": 10047,
+                "file_path": "results\\RealCur\\DriveBehaviorCurve\\DriveBehaviorCurve-10047.onnx",
+                "reward": 25.328231596684716,
+                "creation_time": 1670925219.722373,
+                "auxillary_file_paths": [
+                    "results\\RealCur\\DriveBehaviorCurve\\DriveBehaviorCurve-10047.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 10047,
+            "file_path": "results\\RealCur\\DriveBehaviorCurve.onnx",
+            "reward": 25.328231596684716,
+            "creation_time": 1670925219.722373,
+            "auxillary_file_paths": [
+                "results\\RealCur\\DriveBehaviorCurve\\DriveBehaviorCurve-10047.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
