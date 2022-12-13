@@ -42,8 +42,8 @@ public class DriverAgent : Agent
     private float offRoadTime = 0;
 
     private int countStepps = 0;
-
-    public bool isTraining = false;*/
+*/
+    public bool isTraining = false;
 
     public RayPerceptionSensorComponent3D RaySensorMiddleLine;
     public RayPerceptionSensorComponent3D RaySensorCurve;
@@ -126,6 +126,16 @@ public class DriverAgent : Agent
 
         //this.transform.localPosition = new Vector3(115.62f, 0.4f, 268.8f);
         //this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
+
+        if (isTraining)
+        {
+            return;
+        }
+        else
+        {
+            this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+        }
 /*
         if (isTraining)
         {
