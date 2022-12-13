@@ -25,6 +25,9 @@ public class DriverAgent : Agent
 
     public bool isTraining = false;
 
+    private float configuration = 0;
+    EnvironmentParameters environmentParameters;
+
     public RayPerceptionSensorComponent3D RaySensorMiddleLine;
     public RayPerceptionSensorComponent3D RaySensorCurve;
 
@@ -35,6 +38,8 @@ public class DriverAgent : Agent
             forwardView = vehicle.GetComponent<forwardView>();
             control = vehicle.GetComponent<VehicleControl>();
         }
+
+        environmentParameters = Academy.Instance.EnvironmentParameters;
     }
 
     public void FixedUpdate()
@@ -53,7 +58,8 @@ public class DriverAgent : Agent
     public int countEpisods = -1;
     public override void OnEpisodeBegin()
     {
-
+        configuration = environmentParameters.GetWithDefault("ciriconf", 1.0f);
+        configAgent(configuration);
 
         int x = Random.Range(0, 2);
         var rb = this.GetComponent<Rigidbody>();
@@ -67,6 +73,7 @@ public class DriverAgent : Agent
         //this.transform.localPosition = new Vector3(115.62f, 0.4f, 268.8f);
         //this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
 
+        /*
         if (isTraining)
         {
             if (CompletedEpisodes < 50000)
@@ -133,11 +140,66 @@ public class DriverAgent : Agent
         {
             this.transform.localPosition = new Vector3(276f, 0.75f, 131f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, -119.4f, 0f));
-        }
+        }*/
 
         
 
     } 
+
+
+    private void configAgent(float value)
+    {
+        if (value == 1f)
+        {
+            this.transform.localPosition = new Vector3(113.84f, 0.75f, 413.38f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+        }
+
+        if (value == 2f)
+        {
+            this.transform.localPosition = new Vector3(199.9f, 0.75f, 592.6f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+        }
+
+        if (value == 3f)
+        {
+            this.transform.localPosition = new Vector3(353.43f, 0.75f, 704.4f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
+        }
+
+        if (value == 4f)
+        {
+            this.transform.localPosition = new Vector3(295.5f, 0.75f, 510.77f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
+        }
+
+        if (value == 5f)
+        {
+            this.transform.localPosition = new Vector3(199f, 0.75f, 414f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+        }
+
+        if (value == 6f)
+        {
+            this.transform.localPosition = new Vector3(449.74f, 0.75f, 613.58f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+        }
+
+        if (value == 7f)
+        {
+            this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+        }
+
+        if(value == 8f)
+        {
+            this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+        }
+
+
+    }
+
 
     private int getHits(RayPerceptionSensorComponent3D sensor)
     {
