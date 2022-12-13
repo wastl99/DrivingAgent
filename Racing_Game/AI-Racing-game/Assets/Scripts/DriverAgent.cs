@@ -131,8 +131,8 @@ public class DriverAgent : Agent
         }
         else
         {
-            this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
-            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+            this.transform.localPosition = new Vector3(276f, 0.75f, 131f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -119.4f, 0f));
         }
 
         
