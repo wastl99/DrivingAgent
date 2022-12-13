@@ -4,8 +4,6 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
-using Unity.Barracuda;
-using Phil.MLAgents;
 
 public class DriverAgent : Agent
 {
@@ -13,7 +11,7 @@ public class DriverAgent : Agent
     // Depending on this value, we will have different spawn positions
     float configuration;
     // Brain to use on straight
-    public NNModel straightBrain;
+/*    public NNModel straightBrain;
     // Brain to use on 90 degree right
     public NNModel ninetyRBrain;
     // Brain to use on 90 degree left
@@ -25,7 +23,7 @@ public class DriverAgent : Agent
     // Brain to use on difficult curve right
     public NNModel diffRBrain;
     // Brain to use on difficult curve left
-    public NNModel diffLBrain;
+    public NNModel diffLBrain;*/
 
     public GameObject vehicle;
     private forwardView forwardView;
@@ -48,43 +46,10 @@ public class DriverAgent : Agent
     public RayPerceptionSensorComponent3D RaySensorMiddleLine;
     public RayPerceptionSensorComponent3D RaySensorCurve;
 
-    string straightBehName = "DriveBehaviorStraight";
-    string curveBehName = "DriveBehaviorCurve";
+/*    string straightBehName = "DriveBehaviorStraight";
+    string curveBehName = "DriveBehaviorCurve";*/
 
     EnvironmentParameters environmentParameters;
-
-    public override void Initialize()
-    {
-        //configuration = Random.Range(0, 9);
-
-        environmentParameters = Academy.Instance.EnvironmentParameters;
-
-        // Update model references if we want to override
-        var modelOverrider = GetComponent<ModelOverrider>();
-        if (modelOverrider.HasOverrides)
-        {
-            straightBrain = modelOverrider.GetModelForBehaviorName(straightBehName);
-            straightBehName = ModelOverrider.GetOverrideBehaviorName(straightBehName);
-
-            ninetyRBrain = modelOverrider.GetModelForBehaviorName(curveBehName);
-            curveBehName = ModelOverrider.GetOverrideBehaviorName(curveBehName);
-
-            ninetyLBrain = modelOverrider.GetModelForBehaviorName(curveBehName);
-            curveBehName = ModelOverrider.GetOverrideBehaviorName(curveBehName);
-
-            longRBrain = modelOverrider.GetModelForBehaviorName(curveBehName);
-            curveBehName = ModelOverrider.GetOverrideBehaviorName(curveBehName);
-
-            longLBrain = modelOverrider.GetModelForBehaviorName(curveBehName);
-            curveBehName = ModelOverrider.GetOverrideBehaviorName(curveBehName);
-
-            diffRBrain = modelOverrider.GetModelForBehaviorName(curveBehName);
-            curveBehName = ModelOverrider.GetOverrideBehaviorName(curveBehName);
-
-            diffLBrain = modelOverrider.GetModelForBehaviorName(curveBehName);
-            curveBehName = ModelOverrider.GetOverrideBehaviorName(curveBehName);
-        }
-    }
 
     private void Start()
     {
@@ -93,6 +58,8 @@ public class DriverAgent : Agent
             forwardView = vehicle.GetComponent<forwardView>();
             control = vehicle.GetComponent<VehicleControl>();
         }
+
+        environmentParameters = Academy.Instance.EnvironmentParameters;
     }
 
     public void FixedUpdate()
@@ -143,83 +110,6 @@ public class DriverAgent : Agent
             this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
         }*/
-/*
-        if (isTraining)
-        {
-            if (CompletedEpisodes < 50000)
-            {
-                this.transform.localPosition = new Vector3(113.84f, 0.75f, 413.38f);
-                this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-            }
-            else
-            {
-                if (CompletedEpisodes < 100000)
-                {
-                    this.transform.localPosition = new Vector3(199.9f, 0.75f, 592.6f);
-                    this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-                }
-                else
-                {
-                    if (CompletedEpisodes < 150000)
-                    {
-                        this.transform.localPosition = new Vector3(353.43f, 0.75f, 704.4f);
-                        this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
-                    }
-                    else
-                    {
-                        if (CompletedEpisodes < 200000)
-                        {
-                            this.transform.localPosition = new Vector3(295.5f, 0.75f, 510.77f);
-                            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
-                        }
-                        else
-                        {
-                            if (CompletedEpisodes < 250000)
-                            {
-                                this.transform.localPosition = new Vector3(199f, 0.75f, 414f);
-                                this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-                            }
-                            else
-                            {
-                                if (CompletedEpisodes < 300000)
-                                {
-                                    this.transform.localPosition = new Vector3(449.74f, 0.75f, 613.58f);
-                                    this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-                                }
-                                else
-                                {
-                                    if (CompletedEpisodes < 350000)
-                                    {
-                                        this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
-                                        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-                                    }
-                                    else
-                                    {
-                                        if (CompletedEpisodes < 400000)
-                                        {
-                                            this.transform.localPosition = new Vector3(507.51f, 0.75f, 613.58f);
-                                            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-                                        }
-                                        else
-                                        {
-                                            this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
-                                            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
-            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-        }*/
-
-        
 
     } 
 

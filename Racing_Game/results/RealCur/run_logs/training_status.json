@@ -5,22 +5,22 @@
     "DriveBehaviorCurve": {
         "checkpoints": [
             {
-                "steps": 10047,
-                "file_path": "results\\RealCur\\DriveBehaviorCurve\\DriveBehaviorCurve-10047.onnx",
-                "reward": 25.328231596684716,
-                "creation_time": 1670925219.722373,
+                "steps": 3589,
+                "file_path": "results\\RealCur\\DriveBehaviorCurve\\DriveBehaviorCurve-3589.onnx",
+                "reward": 20.20347566074795,
+                "creation_time": 1670928653.070685,
                 "auxillary_file_paths": [
-                    "results\\RealCur\\DriveBehaviorCurve\\DriveBehaviorCurve-10047.pt"
+                    "results\\RealCur\\DriveBehaviorCurve\\DriveBehaviorCurve-3589.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 10047,
+            "steps": 3589,
             "file_path": "results\\RealCur\\DriveBehaviorCurve.onnx",
-            "reward": 25.328231596684716,
-            "creation_time": 1670925219.722373,
+            "reward": 20.20347566074795,
+            "creation_time": 1670928653.070685,
             "auxillary_file_paths": [
-                "results\\RealCur\\DriveBehaviorCurve\\DriveBehaviorCurve-10047.pt"
+                "results\\RealCur\\DriveBehaviorCurve\\DriveBehaviorCurve-3589.pt"
             ]
         }
     },
