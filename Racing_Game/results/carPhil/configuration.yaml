@@ -36,7 +36,7 @@ behaviors:
     init_path: null
     keep_checkpoints: 5
     checkpoint_interval: 500000
-    max_steps: 22000
+    max_steps: 2200000
     time_horizon: 1000
     summary_freq: 1000
     threaded: false
@@ -66,7 +66,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 8572
+          seed: 4340
           value: 1.0
       name: Lesson0
       completion_criteria:
@@ -79,7 +79,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 8573
+          seed: 4341
           value: 2.0
       name: Lesson1
       completion_criteria:
@@ -92,7 +92,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 8574
+          seed: 4342
           value: 3.0
       name: Lesson2
       completion_criteria:
@@ -105,7 +105,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 8575
+          seed: 4343
           value: 4.0
       name: Lesson3
       completion_criteria:
@@ -118,7 +118,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 8576
+          seed: 4344
           value: 5.0
       name: Lesson4
       completion_criteria:
@@ -131,7 +131,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 8577
+          seed: 4345
           value: 6.0
       name: Lesson5
       completion_criteria:
@@ -144,7 +144,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 8578
+          seed: 4346
           value: 7.0
       name: Lesson6
       completion_criteria:
@@ -157,7 +157,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 8579
+          seed: 4347
           value: 8.0
       name: Lesson7
       completion_criteria:

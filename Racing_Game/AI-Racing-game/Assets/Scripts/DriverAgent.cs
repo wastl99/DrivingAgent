@@ -58,7 +58,7 @@ public class DriverAgent : Agent
     public int countEpisods = -1;
     public override void OnEpisodeBegin()
     {
-        configuration = environmentParameters.GetWithDefault("ciriconf", 1.0f);
+        configuration = environmentParameters.GetWithDefault("ciriconf", 8.0f);
         configAgent(configuration);
 
         int x = Random.Range(0, 2);

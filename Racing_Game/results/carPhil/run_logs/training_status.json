@@ -1,26 +1,53 @@
 {
     "ciriconf": {
-        "lesson_num": 1
+        "lesson_num": 7
     },
     "DriveBehaviorCurve": {
         "checkpoints": [
             {
-                "steps": 3266,
-                "file_path": "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-3266.onnx",
-                "reward": 13.2836690376054,
-                "creation_time": 1671542671.3910112,
+                "steps": 499999,
+                "file_path": "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-499999.onnx",
+                "reward": 248.76780039346247,
+                "creation_time": 1671548645.735665,
                 "auxillary_file_paths": [
-                    "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-3266.pt"
+                    "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-499999.pt"
+                ]
+            },
+            {
+                "steps": 999961,
+                "file_path": "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-999961.onnx",
+                "reward": 41.71770679323297,
+                "creation_time": 1671554173.0213003,
+                "auxillary_file_paths": [
+                    "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-999961.pt"
+                ]
+            },
+            {
+                "steps": 1499947,
+                "file_path": "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-1499947.onnx",
+                "reward": 203.77353906545034,
+                "creation_time": 1671559281.424858,
+                "auxillary_file_paths": [
+                    "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-1499947.pt"
+                ]
+            },
+            {
+                "steps": 1855716,
+                "file_path": "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-1855716.onnx",
+                "reward": null,
+                "creation_time": 1671562886.8291736,
+                "auxillary_file_paths": [
+                    "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-1855716.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 3266,
+            "steps": 1855716,
             "file_path": "results\\carPhil\\DriveBehaviorCurve.onnx",
-            "reward": 13.2836690376054,
-            "creation_time": 1671542671.3910112,
+            "reward": null,
+            "creation_time": 1671562886.8291736,
             "auxillary_file_paths": [
-                "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-3266.pt"
+                "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-1855716.pt"
             ]
         }
     },
