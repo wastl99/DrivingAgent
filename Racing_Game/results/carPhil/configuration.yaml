@@ -66,7 +66,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1058
+          seed: 8572
           value: 1.0
       name: Lesson0
       completion_criteria:
@@ -79,7 +79,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1059
+          seed: 8573
           value: 2.0
       name: Lesson1
       completion_criteria:
@@ -92,7 +92,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1060
+          seed: 8574
           value: 3.0
       name: Lesson2
       completion_criteria:
@@ -105,7 +105,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1061
+          seed: 8575
           value: 4.0
       name: Lesson3
       completion_criteria:
@@ -118,7 +118,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1062
+          seed: 8576
           value: 5.0
       name: Lesson4
       completion_criteria:
@@ -131,7 +131,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1063
+          seed: 8577
           value: 6.0
       name: Lesson5
       completion_criteria:
@@ -144,7 +144,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1064
+          seed: 8578
           value: 7.0
       name: Lesson6
       completion_criteria:
@@ -157,7 +157,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1065
+          seed: 8579
           value: 8.0
       name: Lesson7
       completion_criteria:

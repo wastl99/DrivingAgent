@@ -175,13 +175,14 @@ public class DriverAgent : Agent
     {
         float acc = Mathf.Clamp(actions.ContinuousActions[0], 0f, 1f);
         float steer = Mathf.Clamp(actions.ContinuousActions[1], -1f, 1f);
+        int brake = actions.DiscreteActions[0];
 
-       // Debug.Log(acc);
+        // Debug.Log(acc);
 
         //forward to vehicle;
         control.AgentAcc = acc;
         control.AgentSteer = steer;
-
+        control.agentBrake = brake;
 
 
         if (forwardView.OnRoad == false)

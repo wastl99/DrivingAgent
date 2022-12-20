@@ -1,26 +1,26 @@
 {
     "ciriconf": {
-        "lesson_num": 2
+        "lesson_num": 1
     },
     "DriveBehaviorCurve": {
         "checkpoints": [
             {
-                "steps": 4363,
-                "file_path": "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-4363.onnx",
-                "reward": 53.5494529101663,
-                "creation_time": 1671542344.2256663,
+                "steps": 3266,
+                "file_path": "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-3266.onnx",
+                "reward": 13.2836690376054,
+                "creation_time": 1671542671.3910112,
                 "auxillary_file_paths": [
-                    "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-4363.pt"
+                    "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-3266.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 4363,
+            "steps": 3266,
             "file_path": "results\\carPhil\\DriveBehaviorCurve.onnx",
-            "reward": 53.5494529101663,
-            "creation_time": 1671542344.2256663,
+            "reward": 13.2836690376054,
+            "creation_time": 1671542671.3910112,
             "auxillary_file_paths": [
-                "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-4363.pt"
+                "results\\carPhil\\DriveBehaviorCurve\\DriveBehaviorCurve-3266.pt"
             ]
         }
     },
