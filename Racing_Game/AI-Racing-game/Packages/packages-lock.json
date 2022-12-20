@@ -70,7 +70,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ml-agents": {
-      "version": "file:D:/FH_IM/3_Semester/In Game Technology/Unity/Test/ml-agents-release_19/com.unity.ml-agents",
+      "version": "file:C:/Users/Legion67/Desktop/ml-agents-main/com.unity.ml-agents",
       "depth": 0,
       "source": "local",
       "dependencies": {
