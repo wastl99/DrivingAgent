@@ -1,0 +1,68 @@
+{
+    "ciriconf": {
+        "lesson_num": 7
+    },
+    "DriveBehaviorCurve": {
+        "checkpoints": [
+            {
+                "steps": 21340648,
+                "file_path": "results\\aFinalRun\\DriveBehaviorCurve\\DriveBehaviorCurve-21340648.onnx",
+                "reward": 8216.926944508272,
+                "creation_time": 1672920378.4720592,
+                "auxillary_file_paths": [
+                    "results\\aFinalRun\\DriveBehaviorCurve\\DriveBehaviorCurve-21340648.pt"
+                ]
+            },
+            {
+                "steps": 21341976,
+                "file_path": "results\\aFinalRun\\DriveBehaviorCurve\\DriveBehaviorCurve-21341976.onnx",
+                "reward": 289.7312084833781,
+                "creation_time": 1672920812.1592433,
+                "auxillary_file_paths": [
+                    "results\\aFinalRun\\DriveBehaviorCurve\\DriveBehaviorCurve-21341976.pt"
+                ]
+            },
+            {
+                "steps": 21499854,
+                "file_path": "results\\aFinalRun\\DriveBehaviorCurve\\DriveBehaviorCurve-21499854.onnx",
+                "reward": null,
+                "creation_time": 1672922962.9283752,
+                "auxillary_file_paths": [
+                    "results\\aFinalRun\\DriveBehaviorCurve\\DriveBehaviorCurve-21499854.pt"
+                ]
+            },
+            {
+                "steps": 21505854,
+                "file_path": "results\\aFinalRun\\DriveBehaviorCurve\\DriveBehaviorCurve-21505854.onnx",
+                "reward": null,
+                "creation_time": 1672923040.703767,
+                "auxillary_file_paths": [
+                    "results\\aFinalRun\\DriveBehaviorCurve\\DriveBehaviorCurve-21505854.pt"
+                ]
+            },
+            {
+                "steps": 21610607,
+                "file_path": "results\\aFinalRun\\DriveBehaviorCurve\\DriveBehaviorCurve-21610607.onnx",
+                "reward": 7646.042554450758,
+                "creation_time": 1672943426.873704,
+                "auxillary_file_paths": [
+                    "results\\aFinalRun\\DriveBehaviorCurve\\DriveBehaviorCurve-21610607.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 21610607,
+            "file_path": "results\\aFinalRun\\DriveBehaviorCurve.onnx",
+            "reward": 7646.042554450758,
+            "creation_time": 1672943426.873704,
+            "auxillary_file_paths": [
+                "results\\aFinalRun\\DriveBehaviorCurve\\DriveBehaviorCurve-21610607.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

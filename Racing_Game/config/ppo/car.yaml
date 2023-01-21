@@ -1,5 +1,5 @@
 behaviors:
-  DriveBehavior:
+  DriveBehaviorCurve:
     trainer_type: ppo
     hyperparameters:
       batch_size: 64
@@ -20,6 +20,6 @@ behaviors:
         gamma: 0.99
         strength: 1.0
     keep_checkpoints: 5
-    max_steps: 2000000
+    max_steps: 4000000
     time_horizon: 1000
     summary_freq: 1000

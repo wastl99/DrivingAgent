@@ -147,6 +147,8 @@ public class VehicleControl : MonoBehaviour
     public float AgentAcc = 0f;
     [HideInInspector]
     public bool brake;
+    public int AgentBrake;
+    public bool isAgent = false;
 
     private bool shifmotor;
 
@@ -506,12 +508,30 @@ public class VehicleControl : MonoBehaviour
 
                 if (carWheels.wheels.frontWheelDrive || carWheels.wheels.backWheelDrive)
                 {
-                    steer = Mathf.MoveTowards(steer, Input.GetAxis("Horizontal"), 0.2f);
-                    steer = AgentSteer;
-                    accel = Input.GetAxis("Vertical");
-                    accel = AgentAcc;
-                    brake = Input.GetButton("Jump");
-                    shift = Input.GetKey(KeyCode.LeftShift) | Input.GetKey(KeyCode.RightShift);
+
+                    if (isAgent)
+                    {
+                        steer = AgentSteer;
+                        accel = AgentAcc;
+                        if (AgentBrake > 0)
+                        {
+                            brake = true;
+                        }
+                        else
+                        {
+                            brake = false;
+                        }
+                    }
+                    else
+                    {
+                        steer = Mathf.MoveTowards(steer, Input.GetAxis("Horizontal"), 0.2f);
+
+                        accel = Mathf.Clamp(Input.GetAxis("Vertical"), 0f, 1f);
+                        brake = Input.GetButton("Jump");
+                        shift = Input.GetKey(KeyCode.LeftShift) | Input.GetKey(KeyCode.RightShift);
+                    }
+                    
+                    
 
 
                 }

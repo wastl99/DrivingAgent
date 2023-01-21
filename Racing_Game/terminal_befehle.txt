@@ -1,4 +1,7 @@
-mlagents-learn config/ppo/car.yaml --run-id=carTest
+mlagents-learn config/ppo/car.yaml --run-id=FinalTestNoCiri
+
+für weiter trainieren
+mlagents-learn config/ppo/car.yaml --run-id=FinalTestNoCiri --resume
 
 
 tensorboard --logdir results --port 6006

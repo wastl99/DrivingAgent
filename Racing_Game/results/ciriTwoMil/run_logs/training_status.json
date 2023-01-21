@@ -1,0 +1,68 @@
+{
+    "ciriconf": {
+        "lesson_num": 7
+    },
+    "DriveBehaviorCurve": {
+        "checkpoints": [
+            {
+                "steps": 499962,
+                "file_path": "results\\ciriTwoMil\\DriveBehaviorCurve\\DriveBehaviorCurve-499962.onnx",
+                "reward": 366.4290074097149,
+                "creation_time": 1670972674.5917985,
+                "auxillary_file_paths": [
+                    "results\\ciriTwoMil\\DriveBehaviorCurve\\DriveBehaviorCurve-499962.pt"
+                ]
+            },
+            {
+                "steps": 999998,
+                "file_path": "results\\ciriTwoMil\\DriveBehaviorCurve\\DriveBehaviorCurve-999998.onnx",
+                "reward": 261.4985574521975,
+                "creation_time": 1670978909.0165493,
+                "auxillary_file_paths": [
+                    "results\\ciriTwoMil\\DriveBehaviorCurve\\DriveBehaviorCurve-999998.pt"
+                ]
+            },
+            {
+                "steps": 1499999,
+                "file_path": "results\\ciriTwoMil\\DriveBehaviorCurve\\DriveBehaviorCurve-1499999.onnx",
+                "reward": 191.19689465195137,
+                "creation_time": 1670984996.0784166,
+                "auxillary_file_paths": [
+                    "results\\ciriTwoMil\\DriveBehaviorCurve\\DriveBehaviorCurve-1499999.pt"
+                ]
+            },
+            {
+                "steps": 1999948,
+                "file_path": "results\\ciriTwoMil\\DriveBehaviorCurve\\DriveBehaviorCurve-1999948.onnx",
+                "reward": 535.6682839085979,
+                "creation_time": 1670991378.645043,
+                "auxillary_file_paths": [
+                    "results\\ciriTwoMil\\DriveBehaviorCurve\\DriveBehaviorCurve-1999948.pt"
+                ]
+            },
+            {
+                "steps": 2200065,
+                "file_path": "results\\ciriTwoMil\\DriveBehaviorCurve\\DriveBehaviorCurve-2200065.onnx",
+                "reward": 581.9151548071272,
+                "creation_time": 1670993788.4040296,
+                "auxillary_file_paths": [
+                    "results\\ciriTwoMil\\DriveBehaviorCurve\\DriveBehaviorCurve-2200065.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2200065,
+            "file_path": "results\\ciriTwoMil\\DriveBehaviorCurve.onnx",
+            "reward": 581.9151548071272,
+            "creation_time": 1670993788.4040296,
+            "auxillary_file_paths": [
+                "results\\ciriTwoMil\\DriveBehaviorCurve\\DriveBehaviorCurve-2200065.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

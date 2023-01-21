@@ -29,7 +29,14 @@ public class DriverAgent : Agent
     EnvironmentParameters environmentParameters;
 
     public RayPerceptionSensorComponent3D RaySensorMiddleLine;
-    public RayPerceptionSensorComponent3D RaySensorCurve;
+    //public RayPerceptionSensorComponent3D RaySensorCurve;
+
+
+    //check if stays
+    private Vector3 lastStaticPosition;
+    private Vector3 currentPosition;
+    private float stayTime = 0;
+    private bool isStaying = false;
 
     private void Start()
     {
@@ -37,6 +44,7 @@ public class DriverAgent : Agent
         {
             forwardView = vehicle.GetComponent<forwardView>();
             control = vehicle.GetComponent<VehicleControl>();
+            control.isAgent = true;
         }
 
         environmentParameters = Academy.Instance.EnvironmentParameters;
@@ -46,10 +54,22 @@ public class DriverAgent : Agent
     {
         laptime += Time.fixedDeltaTime;
 
-       if (onGras)
-       {
+        if (onGras)
+        {
             offRoadTime += Time.fixedDeltaTime;
-       }
+        }
+
+        checkIfStays();
+
+        if (isStaying)
+        {
+            stayTime += Time.fixedDeltaTime;
+        }
+
+       if(stayTime > 1)
+        {
+            EndEpisode();
+        }
 
     }
 
@@ -58,9 +78,18 @@ public class DriverAgent : Agent
     public int countEpisods = -1;
     public override void OnEpisodeBegin()
     {
-        configuration = environmentParameters.GetWithDefault("ciriconf", 1.0f);
-        configAgent(configuration);
+        //configuration = environmentParameters.GetWithDefault("ciriconf", 1.0f);
 
+        if (isTraining)
+        {
+            //configAgent(configuration);
+        }
+        else
+        {
+            this.transform.localPosition = new Vector3(666.64f, 0.75f, 195.8f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -19.234f, 0f));
+        }
+        
         int x = Random.Range(0, 2);
         var rb = this.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
@@ -69,19 +98,14 @@ public class DriverAgent : Agent
         onGras = false;
         offRoadTime = 0f;
         countEpisods = CompletedEpisodes;
+        currentPosition = vehicle.transform.localPosition;
+        lastStaticPosition = vehicle.transform.localPosition;
+        stayTime = 0;
+        isStaying = false;
+        control.isAgent = true;
 
         //this.transform.localPosition = new Vector3(115.62f, 0.4f, 268.8f);
         //this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90f, 0f));
-
-        /*
-        if (isTraining)
-        {
-            this.transform.localPosition = new Vector3(276f, 0.75f, 131f);
-            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -119.4f, 0f));
-        }*/
-
-        
-
     } 
 
 
@@ -131,8 +155,8 @@ public class DriverAgent : Agent
 
         if(value == 8f)
         {
-            this.transform.localPosition = new Vector3(115.05f, 0.75f, 54.4f);
-            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+            this.transform.localPosition = new Vector3(661.59f, 0.75f, 213.9f);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -19.234f, 0f));
         }
 
 
@@ -159,6 +183,23 @@ public class DriverAgent : Agent
     }
 
 
+    private void checkIfStays()
+    {
+        currentPosition = vehicle.transform.localPosition;
+        if (lastStaticPosition == currentPosition)
+        {
+            isStaying = true;
+        }
+        else
+        {
+            isStaying = false;
+            stayTime = 0;
+        }
+
+        lastStaticPosition = currentPosition;
+    }
+
+
     //get the numbers of rays of the sensor
     private int getNumbRays(RayPerceptionSensorComponent3D sensor)
     {
@@ -175,48 +216,50 @@ public class DriverAgent : Agent
     {
         float acc = Mathf.Clamp(actions.ContinuousActions[0], 0f, 1f);
         float steer = Mathf.Clamp(actions.ContinuousActions[1], -1f, 1f);
+        int brake = actions.DiscreteActions[0];
 
        // Debug.Log(acc);
 
         //forward to vehicle;
         control.AgentAcc = acc;
         control.AgentSteer = steer;
-
+        control.AgentBrake = brake;
 
 
         if (forwardView.OnRoad == false)
         {
-            //onGras = true;
+            onGras = true;
 
 
 
             // checks if the cart is on the road and let it drive 
 
-            //if(offRoadTime > 0.5f)
-            //{
+            if(offRoadTime > 0.1f)
+            {
                 //float punishmentGras = distance * 10* offRoadTime / laptime;                    
 
                 //AddReward((distance / laptime) - punishmentGras);
-            if(laptime > 0)
-            {
-                AddReward(distance / laptime);
-            }
+                if(laptime > 0)
+                {
+                    float reward = (distance / laptime) - (control.speed * offRoadTime);
+                    AddReward(reward);
+                }
 
-            countStepps += StepCount;
-            EndEpisode();
-            //}
-        }
-        /*else
-        {
-            if(offRoadTime > 0f)
-            {
-                float punishmentGras = -distance * 10 * offRoadTime / laptime;
-                AddReward(punishmentGras);
+                countStepps += StepCount;
+                EndEpisode();
             }
+        }
+        else
+        {
+            //if(offRoadTime > 0f)
+            //{
+            //    float punishmentGras = -distance * 10 * offRoadTime / laptime;
+            //    AddReward(punishmentGras);
+            //}
 
             onGras = false;
             offRoadTime = 0;
-        }*/
+        }
 
         Vector3 currposition = this.transform.position;
         if(Vector3.Distance(currposition, lastPosition) > 1)
@@ -224,13 +267,13 @@ public class DriverAgent : Agent
             int hitsMiddle = getHits(RaySensorMiddleLine);
             int raysMiddle = getNumbRays(RaySensorMiddleLine);
 
-            int hitsCurve = getHits(RaySensorCurve);
-            int raysCurve = getNumbRays(RaySensorCurve);
+            //int hitsCurve = getHits(RaySensorCurve);
+            //int raysCurve = getNumbRays(RaySensorCurve);
 
             distance += 1f;
             lastPosition = currposition;
 
-            float reward = 0 + (0.5f * control.speed * (hitsMiddle + hitsCurve)) / (raysMiddle + raysCurve);
+            float reward = 0 + (0.5f * control.speed * (hitsMiddle )) / (raysMiddle );
 
             AddReward(reward);
         }
